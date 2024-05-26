@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { BsPlus, BsSearch } from "react-icons/bs"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { addTodo, searchTodos } from "../features/todo/todoSlice"
 import Filter from "./Filter"
+import TodoList from "./TodoList"
 
 const Todo = () => {
     const [newTodo, setNewTodo] = useState("")
@@ -12,6 +13,7 @@ const Todo = () => {
     const handleAddTodo = () => {
         if (newTodo.trim() !== "") {
             dispatch(addTodo(newTodo.trim()))
+            setNewTodo("")
         }
     }
 
@@ -61,6 +63,10 @@ const Todo = () => {
                     </button>
                 </div>
             </div>
+
+            {/* todo list */}
+
+            <TodoList />
         </div>
     )
 }

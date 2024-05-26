@@ -11,37 +11,37 @@ export const todoSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            state.todos = [...state.todos, { text: action.payload.text, completed: false }];
+            state.todos = [...state.todos, { text: action.payload, completed: false }];
         },
 
         toggleTodo: (state, action) => {
             state.todos = state.todos.map((todo, index) =>
-                index === action.payload.id ? { ...todo, completed: !todo.completed } : todo
+                index === action.payload ? { ...todo, completed: !todo.completed } : todo
             );
         },
 
         removeTodo: (state, action) => {
-            state.todos = state.todos.filter((todo, index) => index !== action.payload.id);
+            state.todos = state.todos.filter((todo, index) => index !== action.payload);
         },
 
         markComplete: (state, action) => {
             state.todos = state.todos.map((todo, index) =>
-                index === action.payload.id ? { ...todo, completed: true } : todo
+                index === action.payload ? { ...todo, completed: true } : todo
             );
         },
 
         markIncomplete: (state, action) => {
             state.todos = state.todos.map((todo, index) =>
-                index === action.payload.id ? { ...todo, completed: false } : todo
+                index === action.payload ? { ...todo, completed: false } : todo
             );
         },
 
         filterTodos: (state, action) => {
-            state.filter = action.payload.filter;
+            state.filter = action.payload;
         },
 
         searchTodos: (state, action) => {
-            state.search = action.payload.search;
+            state.search = action.payload;
         },
 
         markAllCompleted: (state) => {

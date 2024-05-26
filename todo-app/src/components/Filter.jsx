@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { filterTodos, markAllCompleted } from "../features/todo/todoSlice"
 
 const Filter = () => {
-    const currentFilter = useSelector((state) => state.todo.value)
+    const currentFilter = useSelector((state) => state.todo.filter)
     const dispatch = useDispatch()
 
     const handleFilter = (filter) => {
