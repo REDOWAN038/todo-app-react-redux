@@ -14,14 +14,15 @@ export const todoSlice = createSlice({
             state.todos = [...state.todos, { text: action.payload, completed: false }];
         },
 
-        toggleTodo: (state, action) => {
-            state.todos = state.todos.map((todo, index) =>
-                index === action.payload ? { ...todo, completed: !todo.completed } : todo
-            );
-        },
-
         removeTodo: (state, action) => {
             state.todos = state.todos.filter((todo, index) => index !== action.payload);
+        },
+
+        updateTodo: (state, action) => {
+            const { index, newText } = action.payload;
+            state.todos = state.todos.map((todo, i) =>
+                i === index ? { ...todo, text: newText } : todo
+            );
         },
 
         markComplete: (state, action) => {
@@ -55,8 +56,8 @@ export const todoSlice = createSlice({
 
 export const {
     addTodo,
-    toggleTodo,
     removeTodo,
+    updateTodo,
     markComplete,
     markIncomplete,
     markAllCompleted,

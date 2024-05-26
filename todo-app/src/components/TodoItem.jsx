@@ -1,21 +1,22 @@
 import { useDispatch } from "react-redux"
-import {
-    FaToggleOn,
-    FaToggleOff,
-    FaTrash,
-    FaCheck,
-    FaTimes,
-} from "react-icons/fa"
+import { FaTrash, FaCheck, FaTimes, FaEdit } from "react-icons/fa"
 
 import {
     markComplete,
     markIncomplete,
     removeTodo,
-    toggleTodo,
+    updateTodo,
 } from "../features/todo/todoSlice"
+import { useState } from "react"
+import Modal from "./Modal"
 
 const TodoItem = ({ todo, index }) => {
+    const [showModal, setShowModal] = useState(false)
     const dispatch = useDispatch()
+
+    const handleConfirm = (newText) => {
+        dispatch(updateTodo({ index, newText }))
+    }
 
     return (
         <li className='flex flex-col sm:flex-row sm:items-center justify-between border-b-2 py-2 gap-4'>
@@ -32,10 +33,16 @@ const TodoItem = ({ todo, index }) => {
             <div className='space-x-3 ml-8'>
                 <button
                     className='mr-2 text-sm bg-blue-500 text-white sm:px-2 px-1 py-1 rounded'
-                    onClick={() => dispatch(toggleTodo(index))}
+                    onClick={() => setShowModal(true)}
                 >
-                    {todo.completed ? <FaToggleOff /> : <FaToggleOn />}
+                    <FaEdit />
                 </button>
+                <Modal
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    handleConfirm={handleConfirm}
+                    text={todo.text}
+                />
                 <button
                     className='mr-2 text-sm bg-red-500 text-white sm:px-2 px-1 py-1 rounded'
                     onClick={() => dispatch(removeTodo(index))}
